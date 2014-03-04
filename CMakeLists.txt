@@ -11,6 +11,7 @@ set(srcs
 set(headers
 "include/MeshDataStructure.h"
 "include/predicates.h"
+"include/quad_edge.h"
 )
 
 # this set of lines creates an executable, if you need to create another
