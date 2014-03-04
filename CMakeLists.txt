@@ -4,12 +4,13 @@ project(TerrainMesh)
 
 # add source files here.  This sets the ${srcs} variable to be a list of files
 set(srcs
-predicates.cpp
+"src/predicates.cpp"
 )
 
 # add headers here.  This sets the ${headers} variable to be a list of files
 set(headers
-MeshDataStructure.h
+"include/MeshDataStructure.h"
+"include/predicates.h"
 )
 
 # this set of lines creates an executable, if you need to create another
