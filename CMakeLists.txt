@@ -1,4 +1,4 @@
-cmake_minimum_version(VERSION 2.8)
+cmake_minimum_required(VERSION 2.8)
 
 project(TerrainMesh)
 
@@ -15,6 +15,6 @@ set(headers
 
 # this set of lines creates an executable, if you need to create another
 add_executable(TerrainMesh ${srcs} ${headers})
-target_link_libraries(
+#target_link_libraries(
 # put any libraries we require here
-)
+#)
