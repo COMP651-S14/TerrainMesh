@@ -1,8 +1,9 @@
 
 #include "triangulation.h"
 
+Edge* localizePoint(Edge*,const Point&);
 
-void Triangulation::triangulate(Triangle* boundingFace, const std::vector<Point>& pts) {
+void Triangulation::triangulate(Edge* boundingFace, const std::vector<Point>& pts) {
     int size = pts.size();
     for (int i = 0; i < size; i++)
     {
@@ -10,8 +11,8 @@ void Triangulation::triangulate(Triangle* boundingFace, const std::vector<Point>
     }
 }
 
-void Triangulation::addPoint(Triangle* currentTris, const Point& pt) {
-    Triangle* tri = localizePoint(currentTris,pt);
+void Triangulation::addPoint(Edge* currentTris, const Point& pt) {
+    Edge* tri = localizePoint(currentTris,pt);
     splitTriangle(tri,pt);
     std::vector<Edge*> edges;
     edges.push_back(getEdge(tri,0));
@@ -20,10 +21,7 @@ void Triangulation::addPoint(Triangle* currentTris, const Point& pt) {
     questionEdges(edges,pt);
 }
 
-Triangle* Triangulation::localizePoint(Triangle* currentTris, const Point& pt) {
-}
-
-void Triangulation::splitTriangle(Triangle* tri, const Point& ptInTri) {
+void Triangulation::splitTriangleToLeft(Edge* tri, const Point& ptInTri) {
 }
 
 void Triangulation::questionAndSwapEdges(std::vector<Edge*>& edges, const Point& newPoint) {
