@@ -5,6 +5,7 @@ project(TerrainMesh)
 # add source files here.  This sets the ${srcs} variable to be a list of files
 set(srcs
 "src/predicates.cpp"
+"src/main.cpp"
 )
 
 # add headers here.  This sets the ${headers} variable to be a list of files
