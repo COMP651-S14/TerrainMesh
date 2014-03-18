@@ -1,2 +1,12 @@
 build/
 CMakeLists.txt.user
+*.sdf
+*.obj
+*.tlog
+*.pdb
+*.exe
+*.ilk
+*.ipch
+*.log
+*.lastbuildstate
+*.manifest

@@ -12,7 +12,6 @@ void triangulate(QuadEdgeWrapper* boundingFace, const std::vector<Point>& pts);
 
 void addPoint(QuadEdgeWrapper* currentTris, const Point& pt);
 
-
 }
 
 #endif
