@@ -1,5 +1,5 @@
-#ifndef PQ_WALK_H
-#define PQ_WALK_H
+#ifndef LOCATE_H
+#define LOCATE_H
 
 //need Edges, Vertexes, Vector3 (as a point)
 #include "Vector3.h"
@@ -10,10 +10,13 @@
 /*               result is also a rough approximation of twice the signed    */
 /*               area of the triangle defined by the three points.
 */
+Vector3 p;
 Edge * pq_walk(Vector3 q);
+Edge * GSLocate(Vector3 q);
 Edge * randEdge(Triangulation T);
-bool leftOrOn(Vector3 p, Vector3 q);
+bool leftOrOn(Edge e, Vector3 q);
+bool equivalent(Vector3 q, Vertex edgeVertex);
 
-#endif /*PQ_WALK_H*/
+#endif /*LOCATE_H*/
 
 
