@@ -10,10 +10,11 @@ set(srcs
 
 # add headers here.  This sets the ${headers} variable to be a list of files
 set(headers
-"include/MeshDataStructure.h"
+#"include/MeshDataStructure.h"
 #"include/predicates.h"
-"include/quad_edge.h"
+#"include/quad_edge.h"
 "include/vector3.h"
+"include/Vec3.h"
 )
 
 include_directories(${CMAKE_SOURCE_DIR}/include)

@@ -10,3 +10,4 @@ CMakeLists.txt.user
 *.log
 *.lastbuildstate
 *.manifest
+vc10/
