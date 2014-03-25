@@ -8,7 +8,7 @@ QuadEdgeWrapper::QuadEdgeWrapper(int maxNumQuadEdges) :
   numEdges(0),
   maxNumEdges(maxNumQuadEdges)
 {
-    edges = reinterpret_cast<QuadEdge*>(malloc(maxNumQuadEdges * sizeof(QuadEdge)));
+    edges = reinterpret_cast<Edge*>(malloc(maxNumQuadEdges * sizeof(Edge)));
 }
 
 QuadEdgeWrapper::~QuadEdgeWrapper()
@@ -16,15 +16,15 @@ QuadEdgeWrapper::~QuadEdgeWrapper()
   free(reinterpret_cast<void*>(edges));
 }
 
-QuadEdge* QuadEdgeWrapper::getNewQuadEdgeMemory()
+Edge* QuadEdgeWrapper::getNewQuadEdgeMemory()
 {
-  assert(numEdges < maxNumQuadEdges);
-  QuadEdge* ret = &edges[numEdges];
+  assert(numEdges < maxNumEdges);
+  Edge* ret = &edges[numEdges];
   ++numEdges;
   return ret;
 }
 
-QuadEdge* QuadEdgeWrapper::getFirstQuadEdgeInStructure()
+Edge* QuadEdgeWrapper::getFirstQuadEdgeInStructure()
 {
   assert(numEdges > 0);
   return &edges[0];
