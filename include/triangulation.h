@@ -2,15 +2,16 @@
 #define TRIANGULATION_H_INCLUDED
 
 #include <vector>
+#include <Vector3.h>
 
-typedef Y Point;
-class QuadEdgeWrapper;
+typedef Vector3 Point;
+class Cell;
 
 namespace Triangulation {
 
-void triangulate(QuadEdgeWrapper* boundingFace, const std::vector<Point>& pts);
+void triangulate(Cell* boundingFace, const std::vector<Point>& pts);
 
-void addPoint(QuadEdgeWrapper* currentTris, const Point& pt);
+void addPoint(Cell* currentTris, const Point& pt);
 
 }
 

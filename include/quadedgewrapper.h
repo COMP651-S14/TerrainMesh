@@ -1,7 +1,7 @@
 #ifndef QUADEDGEWRAPPER_H
 #define QUADEDGEWRAPPER_H
 
-typedef X QuadEdge;
+#include "edge.h"
 
 class QuadEdgeWrapper
 {
@@ -12,11 +12,11 @@ public:
     ~QuadEdgeWrapper();
 
     // gets the memory location to be initialized with a new quad-edge
-    QuadEdge* getNewQuadEdgeMemory();
+    Edge* getNewQuadEdgeMemory();
     // gets the existing quad edge as a pointer to the structure
-    QuadEdge* getFirstQuadEdgeInStructure();
+    Edge* getFirstQuadEdgeInStructure();
 private:
-    QuadEdge* edges;
+    Edge* edges;
     int numEdges, maxNumEdges;
 };
 
