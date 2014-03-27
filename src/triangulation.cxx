@@ -1,16 +1,16 @@
 
 #include "triangulation.h"
-#include "quadedgewrapper.h"
+#include "cell.h"
 
-QuadEdge* localizePoint(QuadEdge*, const Point&);
+Face* localizePoint(Cell*, const Point&);
 
-void splitTriangleToLeft(QuadEdgeWrapper* wrapper, QuadEdge* tri,
+void splitTriangleToLeft(Cell* wrapper, Edge* tri,
                          const Point& ptInTri);
 
-void questionAndSwapEdges(std::vector< QuadEdge* >& edges,
+void questionAndSwapEdges(std::vector< Edge* >& edges,
                           const Point& newPoint);
 
-void Triangulation::triangulate(QuadEdgeWrapper* boundingFace,
+void Triangulation::triangulate(Cell* boundingFace,
                                 const std::vector< Point >& pts)
 {
   int size = pts.size();
@@ -19,23 +19,16 @@ void Triangulation::triangulate(QuadEdgeWrapper* boundingFace,
   }
 }
 
-void Triangulation::addPoint(QuadEdgeWrapper* currentTris, const Point& pt)
-{
-  QuadEdge* tri = localizePoint(currentTris.getFirstQuadEdgeInStructure(), pt);
-  splitTriangle(currentTris, tri, pt);
-  std::vector< QuadEdge* > edges;
-  edges.push_back(getEdge(tri, 0));
-  edges.push_back(getEdge(tri, 1));
-  edges.push_back(getEdge(tri, 2));
-  questionEdges(edges, pt);
-}
-
-void Triangulation::splitTriangleToLeft(QuadEdgeWrapper* wrapper, QuadEdge* tri,
-                                        const Point& ptInTri)
+void Triangulation::addPoint(Cell* currentTris, const Point& pt)
 {
 }
 
-void Triangulation::questionAndSwapEdges(std::vector< QuadEdge* >& edges,
-                                         const Point& newPoint)
+void splitTriangleToLeft(Cell* wrapper, Edge* tri,
+                         const Point& ptInTri)
+{
+}
+
+void questionAndSwapEdges(std::vector< Edge* >& edges,
+                          const Point& newPoint)
 {
 }
