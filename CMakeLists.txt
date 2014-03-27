@@ -26,7 +26,7 @@ add_library(quad_edge ${quad_edge_srcs} ${quad_edge_headers})
 # add source files here.  This sets the ${srcs} variable to be a list of files
 set(srcs
 #"src/predicates.cpp"
-"src/locate.cpp"
+#"src/locate.cpp"
 "src/triangulation.cxx"
 "src/main.cpp"
 )
