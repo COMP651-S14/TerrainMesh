@@ -9,6 +9,25 @@
 #include <GSLocate.h>
 using namespace std;
 
+void printAllEdgesInCell(Cell *c) {
+    int cell = 0;
+
+    CellFaceIterator itr(c);
+    Face *f = NULL;
+    while ((f = itr.next())) {
+        cout << "Cell: " << cell << endl;
+        FaceEdgeIterator eitr(f);
+        Edge *e = NULL;
+        int edge = 0;
+        while ((e = eitr.next())) {
+            cout << "Edge " << edge <<" from " << e->Org()->pos << " to " << e->Dest()->pos << endl;
+            ++edge;
+        }
+        cout << endl;
+        ++cell;
+    }
+}
+
 Cell* setUpInitialCell(float minx, float maxx, float miny, float maxy) {
 	float dmax = max( maxx - minx, maxy - miny );
 	dmax = max( dmax, 10.0f );	// in case of a single point
@@ -87,24 +106,9 @@ int main(int argc, char *argv[]) {
 	//system("pause");
 	
 	Cell * initialCell = setUpInitialCell(minx, maxx, miny, maxy);
-    Triangulation::triangulate(initialCell, vecArray, &gsLocate);
+    Triangulation::triangulate(initialCell, vecArray);//, &gsLocate);
 
-    int cell = 0;
-
-    CellFaceIterator itr(initialCell);
-    Face *f = NULL;
-    while ((f = itr.next())) {
-        cout << "Cell: " << cell << endl;
-        FaceEdgeIterator eitr(f);
-        Edge *e = NULL;
-        int edge = 0;
-        while ((e = eitr.next())) {
-            cout << "Edge " << edge <<" from " << e->Org()->pos << " to " << e->Dest()->pos << endl;
-            ++edge;
-        }
-        cout << endl;
-        ++cell;
-    }
+    printAllEdgesInCell(initialCell);
 
 	return 0;
 }
