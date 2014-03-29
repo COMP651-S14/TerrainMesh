@@ -37,8 +37,8 @@ set(headers
 #"include/MeshDataStructure.h"
 "include/predicates.h"
 #"include/quad_edge.h"
-"include/vector3.h"
-"include/Vec3.h"
+#"include/vector3.h"
+"include/vec3.h"
 "include/locate.h"
 "include/triangulation.h"
 "include/GSLocate.h"
@@ -47,10 +47,10 @@ set(headers
 include_directories(${CMAKE_SOURCE_DIR}/include)
 
 # this set of lines creates an executable, if you need to create another
-add_executable(TerrainMesh ${srcs} ${headers})
-target_link_libraries(TerrainMesh
- quad_edge
-)
+add_library(TerrainMesh ${srcs} ${headers})
+#target_link_libraries(TerrainMesh
+# quad_edge
+#)
 
 set(test_srcs
 "src/array.cpp"
@@ -66,4 +66,4 @@ set(test_headers
 )
 
 add_executable(test ${test_srcs} ${test_headers})
-target_link_libraries(test quad_edge)
+target_link_libraries(test quad_edge TerrainMesh)

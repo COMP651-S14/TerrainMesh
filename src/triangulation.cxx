@@ -1,4 +1,3 @@
-
 #include "triangulation.h"
 #include "predicates.h"
 #include "cell.h"
@@ -9,9 +8,9 @@ Edge* localizePoint(Cell *c, const Point& newPoint) {
     CellFaceIterator faces(c);
     Face *f = NULL;
     pos p[4];
-    p[3][0] = newPoint.x;
-    p[3][1] = newPoint.y;
-    p[3][2] = newPoint.z;
+    p[3][0] = newPoint.getX();
+    p[3][1] = newPoint.getY();
+    p[3][2] = newPoint.getZ();
     while ((f = faces.next())) {
         Edge *e1 = f->getEdge();
         Edge *e2 = e1->Lnext();
@@ -37,17 +36,24 @@ void questionAndSwapEdges(std::vector< Edge* >& edges,
                           const Point& newPoint);
 
 void Triangulation::triangulate(Cell* boundingFace,
-                                const std::vector< Point >& pts)
+                                const std::vector< Point >& pts, LocateFunction l)
 {
   int size = pts.size();
   for (int i = 0; i < size; i++) {
-    addPoint(boundingFace, pts.at(i));
+    addPoint(boundingFace, pts.at(i),l);
   }
 }
 
-void Triangulation::addPoint(Cell* c, const Point& pt)
+void Triangulation::addPoint(Cell* c, const Point& pt, LocateFunction l)
 {
-    Edge *e1 = localizePoint(c,pt);
+    // locate point
+    Edge *e0;
+    CellFaceIterator fitr(c);
+    e0 = fitr.next()->getEdge();
+    vec3 v;
+    v.set(pt.x,pt.y,pt.z);
+    Edge *e1 = (l == NULL) ? l(v,e0) : localizePoint(c,pt);
+
     Vertex *v1 = e1->Org(), *v2 = e1->Dest();
     Face *f = e1->Left();
     Edge *e2 = e1->Lnext();

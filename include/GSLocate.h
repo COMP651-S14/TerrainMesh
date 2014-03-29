@@ -7,5 +7,5 @@ class Edge;
 	@param		X			point whose location has to be found
 	@returns :     Returns the edge on which point x lies or which has the trangle containing X on its left
 */
-Edge* gsLocate(vec3 x, Edge* initEdge); 
+Edge* gsLocate(vec3& x, Edge* initEdge);
 

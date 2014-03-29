@@ -1,3 +1,4 @@
+/*
 #include <iostream>
 #include <fstream>
 #include <string>
@@ -39,11 +40,11 @@ int main()
 				maxy = ted.y;
 			else if (ted.y < miny)
 				miny = ted.y;
-			/*
+			
 			if (ted.z > maxz)
 				maxz = ted.z;
 			else if (ted.z < minz)
-				minz = ted.z;*/
+				minz = ted.z;
 
 			vectorList.push_back(ted);
 		}
@@ -89,4 +90,4 @@ int main()
 	fin.close();
 	return 0;
 }
-
+*/

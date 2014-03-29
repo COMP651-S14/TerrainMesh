@@ -15,7 +15,7 @@
 /*               area of the triangle defined by the three points.           */                                    
 
 
-Edge* gsLocate(vec3 x, Edge* initEdge){
+Edge* gsLocate(vec3& x, Edge* initEdge){
 	Edge * e=initEdge;
 	while(true){
 		if(x==e->Org()->pos  || x==e->Dest()->pos)
