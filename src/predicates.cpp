@@ -116,6 +116,8 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <math.h>
+#include "predicates.h"
+#include "vec3.h"
 
 #ifdef __linux__
 	#include <sys/time.h>
@@ -135,7 +137,7 @@
 #define INEXACT                          /* Nothing */
 /* #define INEXACT volatile */
 
-#define REAL double                      /* float or double */
+
 #define REALPRINT doubleprint
 #define REALRAND doublerand
 #define NARROWRAND narrowdoublerand
@@ -1385,6 +1387,19 @@ REAL orient2dfast(REAL* pa, REAL* pb, REAL* pc)
   bcy = pb[1] - pc[1];
   return acx * bcy - acy * bcx;
 }
+
+
+REAL orient2dfastVec(vec3 pa, vec3 pb, vec3 pc)
+{
+  REAL acx, bcx, acy, bcy;
+
+  acx = pa.getX()-pc.getX();//pa[0] - pc[0];
+  bcx = pb.getX()-pc.getX();//pb[0] - pc[0];
+  acy = pa.getY()-pc.getY();//pa[1] - pc[1];
+  bcy = pb.getY()-pc.getY();//pb[1] - pc[1];
+  return acx * bcy - acy * bcx;
+}
+
 
 REAL orient2dexact(REAL* pa, REAL* pb, REAL* pc)
 {

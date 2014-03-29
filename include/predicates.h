@@ -26,3 +26,11 @@
 /*    are also versions with the suffices "exact" and "slow", which are      */
 /*    non-adaptive, exact arithmetic versions, which I use only for timings  */
 /*    in my arithmetic papers.                                               */
+
+#define REAL double                      /* float or double */
+
+class vec3;
+
+    REAL orient2d(REAL *pa, REAL *pb, REAL *pc);                                                  
+    REAL orient2dfast(REAL *pa, REAL *pb, REAL *pc); 
+	REAL orient2dfastVec(vec3 pa, vec3 pb, vec3 pc); 
