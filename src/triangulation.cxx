@@ -42,7 +42,7 @@ Edge* localizePoint(Cell *c, const vec3& newPoint) {
 	return NULL;
 }
 
-void questionAndSwapEdges(vector<Edge*>& edges, const Point& newPoint);
+void testAndSwapEdges(Cell *c, vector<Edge*>& edges, const Point& newPoint);
 
 void Triangulation::triangulate(Cell* boundingFace, const vector<Point>& pts, LocateFunction l)
 {
@@ -66,20 +66,20 @@ void Triangulation::addPoint(Cell* c, const Point& pt, LocateFunction l)
     Vertex *v1 = e1->Org(), *v2 = e1->Dest();
     Face *f = e1->Left();
     Edge *e2 = e1->Lnext();
-    Edge *e3 = e2->Lprev();
+    Edge *e3 = e1->Lprev();
     Vertex *v3 = e2->Dest();
-    Face *f2 = c->makeFaceEdge(f,v1,v2)->Left();
-    Vertex *vnew = c->makeVertexEdge(v2,f,f2)->Dest();
+    Face *f2 = c->makeFaceEdge(f,v1,v2)->Right();
+    Vertex *vnew = c->makeVertexEdge(v2,f2,f)->Dest();
 	vnew->pos.set(pt.x,pt.y,pt.z);
     c->makeFaceEdge(f,vnew,v3);
     std::vector<Edge*> neighbors;
     neighbors.push_back(e1->Sym());
     neighbors.push_back(e2->Sym());
     neighbors.push_back(e3->Sym());
-    questionAndSwapEdges(neighbors,pt);
+    testAndSwapEdges(c,neighbors,pt);
 }
 
-void questionAndSwapEdges(std::vector< Edge* >& edges, const Point& newPoint)
+void testAndSwapEdges(Cell *c, std::vector< Edge* >& edges, const Point& newPoint)
 {
     while (!edges.empty()) {
         Edge *e1 = edges.back();
@@ -106,16 +106,9 @@ void questionAndSwapEdges(std::vector< Edge* >& edges, const Point& newPoint)
         // test if in circle
         if (incircle(p[0],p[1],p[2],p[3]) > 0)
         {
-            Edge::splice(e1,e2);
-            Edge::splice(e1,e3);
-            Edge::splice(e1,e4);
-            Edge::splice(e1,e5);
-            e1->setOrg(e5->Dest());
-            e1->setDest(e2->Dest());
-            Edge::splice(e1,e4);
-            Edge::splice(e1,e5->Sym());
-            Edge::splice(e1,e2);
-            Edge::splice(e1,e3->Sym());
+            Face *left = e1->Left();
+            c->killFaceEdge(e1);
+            c->makeFaceEdge(left,e2->Dest(),e5->Dest());
             edges.push_back(e2->Sym());
             edges.push_back(e3->Sym());
         }
