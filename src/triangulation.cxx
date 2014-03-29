@@ -37,17 +37,24 @@ void questionAndSwapEdges(std::vector< Edge* >& edges,
                           const Point& newPoint);
 
 void Triangulation::triangulate(Cell* boundingFace,
-                                const std::vector< Point >& pts)
+                                const std::vector< Point >& pts, LocateFunction l)
 {
   int size = pts.size();
   for (int i = 0; i < size; i++) {
-    addPoint(boundingFace, pts.at(i));
+    addPoint(boundingFace, pts.at(i),l);
   }
 }
 
-void Triangulation::addPoint(Cell* c, const Point& pt)
+void Triangulation::addPoint(Cell* c, const Point& pt, LocateFunction l)
 {
-    Edge *e1 = localizePoint(c,pt);
+    // locate point
+    Edge *e0;
+    CellFaceIterator fitr(c);
+    e0 = fitr.next()->getEdge();
+    vec3 v;
+    v.set(pt.x,pt.y,pt.z);
+    Edge *e1 = (l == NULL) ? l(v,e0) : localizePoint(c,pt);
+
     Vertex *v1 = e1->Org(), *v2 = e1->Dest();
     Face *f = e1->Left();
     Edge *e2 = e1->Lnext();
