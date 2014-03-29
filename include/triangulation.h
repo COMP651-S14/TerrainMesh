@@ -7,7 +7,8 @@
 typedef vec3 Point;
 
 class Cell;
-typedef Edge* (*LocateFunction)(vec3&, Edge*);
+class Edge;
+typedef Edge *(*LocateFunction)(vec3&, Edge*);
 
 namespace Triangulation {
 
