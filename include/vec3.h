@@ -5,12 +5,11 @@
 
 class vec3 {
 
-private:
+public:
 	float x;
 	float y;
 	float z;
 
-public:
 	vec3() {}
 
 	vec3(float newX, float newY, float newZ) {

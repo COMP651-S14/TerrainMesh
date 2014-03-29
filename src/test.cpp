@@ -4,7 +4,42 @@
 #include <string>
 #include <vector>
 #include <vec3.h>
+#include <cell.h>
+#include <triangulation.h>
 using namespace std;
+
+Cell* setUpInitialCell(float minx, float maxx, float miny, float maxy) {
+	float dmax = max( maxx - minx, maxy - miny );
+	dmax = max( dmax, 10.0f );	// in case of a single point
+	float cx = ( maxx - minx ) * 0.5f;
+	float cy = ( maxy - miny ) * 0.5f;
+
+	vec3 tri[3];
+	tri[0].x = cx - 20.0f * dmax;
+	tri[0].y = cy - dmax;
+	tri[1].x = cx + 20.0f * dmax;
+	tri[1].y = cy - dmax;
+	tri[2].x = cx;
+	tri[2].y = cy + 20.0f * dmax;
+
+	Cell *cell = Cell::make();
+
+	CellVertexIterator iter( cell );
+	Vertex *v1 = iter.next();
+	
+	Edge *a = v1->getEdge();
+	Face *left = a->Left();
+	Face *right = a->Right();
+
+	Vertex *v2 = cell->makeVertexEdge(v1, left, right)->Dest();
+	Vertex *v3 = cell->makeVertexEdge(v2, left, right)->Dest();
+
+	v1->pos.set( tri[0].x, tri[0].y, 0.0f );
+	v2->pos.set( tri[1].x, tri[1].y, 0.0f );
+	v3->pos.set( tri[2].x, tri[2].y, 0.0f );
+
+	return cell;
+}
 
 int main(int argc, char *argv[]) {
 	string fname = (argc == 2) ? string(argv[1]): "E:/University/COMP 651 - Computational Geometry/HW4/data/test1.txt";
@@ -43,7 +78,13 @@ int main(int argc, char *argv[]) {
 	cout << vecArray.size() << " vertices were read from " << fname << endl
 		<< "The bounding box was: [" << minx << " " << miny << " " << minz << "] -> [" << maxx << " " << maxy << " " << maxz << "]" << endl;
 	
-	system("pause");
+	//system("pause");
+	
+	Cell * initialCell = setUpInitialCell(minx, maxx, miny, maxy);
+	Triangulation::triangulate(initialCell, vecArray);
+
+	//FaceIter
+
 	return 0;
 }
 
