@@ -27,23 +27,22 @@ public:
 	float getX() { return x; }
 	float getY() { return y; }
 	float getZ() { return z; }
-	// bool MyClass::operator==(const MyClass &other) const
-    bool operator==( vec3 v1) {
-		
-		return !(x == v1.getX() && y==v1.getY());
-		//return Vector2d<Type>( s * v._x, s * v._y );
-	}
 
 	float getX() const { return x; }
 	float getY() const { return y; }
 	float getZ() const { return z; }
 
-	friend std::ostream& operator<< (std::ostream& os, vec3& vec);
+	friend std::ostream& operator<< (std::ostream& os, const vec3& vec);
+	friend bool operator== (const vec3& v1, const vec3& v2);
 };
 
-inline std::ostream& operator<< (std::ostream& os, vec3& vec) {
-	os << "|" << vec.x << " " << vec.y << " " << vec.z << "|\n";
+inline std::ostream& operator<< (std::ostream& os, const vec3& vec) {
+	os << "|" << vec.getX() << " " << vec.getY() << " " << vec.getZ() << "|\n";
 	return os;
+}
+
+inline bool operator== (const vec3& v1, const vec3& v2) {
+	return (v1.getX() == v2.getX()) && (v1.getY() == v2.getY());
 }
 
 #endif

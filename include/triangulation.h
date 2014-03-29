@@ -16,7 +16,6 @@ void triangulate(Cell* boundingFace, const std::vector<Point>& pts, LocateFuncti
 
 void addPoint(Cell* currentTris, const Point& pt, LocateFunction l = NULL);
 
-
 }
 
 #endif
