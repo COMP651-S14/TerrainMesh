@@ -1393,10 +1393,10 @@ REAL orient2dfastVec(vec3 pa, vec3 pb, vec3 pc)
 {
   REAL acx, bcx, acy, bcy;
 
-  acx = pa.getX()-pc.getX();//pa[0] - pc[0];
-  bcx = pb.getX()-pc.getX();//pb[0] - pc[0];
-  acy = pa.getY()-pc.getY();//pa[1] - pc[1];
-  bcy = pb.getY()-pc.getY();//pb[1] - pc[1];
+  acx = pa.x-pc.x;//pa[0] - pc[0];
+  bcx = pb.x-pc.x;//pb[0] - pc[0];
+  acy = pa.y-pc.y;//pa[1] - pc[1];
+  bcy = pb.y-pc.y;//pb[1] - pc[1];
   return acx * bcy - acy * bcx;
 }
 

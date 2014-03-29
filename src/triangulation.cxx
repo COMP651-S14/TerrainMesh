@@ -7,44 +7,43 @@ using namespace std;
 typedef double pos[3];
 
 Edge* localizePoint(Cell *c, const vec3& newPoint) {
-    cout << "Now inserting point " << newPoint << endl;
+    cout << "Now inserting point " << newPoint << " in cell bounded by: " << endl;
 	CellFaceIterator faces(c);
     Face *f = NULL;
     pos p[4];
-    p[3][0] = newPoint.getX();
-    p[3][1] = newPoint.getY();
-    p[3][2] = newPoint.getZ();
+    p[3][0] = newPoint.x;
+    p[3][1] = newPoint.y;
+    p[3][2] = newPoint.z;
     while ((f = faces.next())) {
         Edge *e1 = f->getEdge();
         Edge *e2 = e1->Lnext();
         Vertex *v1 = e1->Org();
         Vertex *v2 = e1->Dest();
         Vertex *v3 = e2->Dest();
-        p[0][0] = v1->pos.getX();
-        p[0][1] = v1->pos.getY();
-        p[0][2] = v1->pos.getZ();
-        p[1][0] = v2->pos.getX();
-        p[1][1] = v2->pos.getY();
-        p[1][2] = v2->pos.getZ();
-        p[2][0] = v3->pos.getX();
-        p[2][1] = v3->pos.getY();
-        p[2][2] = v3->pos.getZ();
-        if (orient2d(p[0],p[1],p[3]) >= 0 && orient2d(p[1],p[2],p[3]) >= 0 && orient2d(p[2],p[0],p[3]) >= 0) {
+        p[0][0] = v1->pos.x;
+        p[0][1] = v1->pos.y;
+        p[0][2] = v1->pos.z;
+        p[1][0] = v2->pos.x;
+        p[1][1] = v2->pos.y;
+        p[1][2] = v2->pos.z;
+        p[2][0] = v3->pos.x;
+        p[2][1] = v3->pos.y;
+        p[2][2] = v3->pos.z;
+        if ((orient2d(p[0],p[1],p[3]) >= 0) && (orient2d(p[1],p[2],p[3]) >= 0) && (orient2d(p[2],p[0],p[3]) >= 0)) {
             return e1;
         }
     }
+	cout << "Returned NULL!" << endl;
 	return NULL;
 }
 
-void questionAndSwapEdges(std::vector< Edge* >& edges,
-                          const Point& newPoint);
+void questionAndSwapEdges(vector<Edge*>& edges, const Point& newPoint);
 
-void Triangulation::triangulate(Cell* boundingFace,
-                                const std::vector< Point >& pts, LocateFunction l)
+void Triangulation::triangulate(Cell* boundingFace, const vector<Point>& pts, LocateFunction l)
 {
   int size = pts.size();
   for (int i = 0; i < size; i++) {
-    addPoint(boundingFace, pts.at(i),l);
+    addPoint(boundingFace, pts.at(i), l);
   }
 }
 
@@ -85,15 +84,15 @@ void questionAndSwapEdges(std::vector< Edge* >& edges, const Point& newPoint)
         Edge *e4 = e1->Rnext();
         Edge *e5 = e1->Rprev();
         pos p[4];
-        p[0][0] = v1->pos.getX();
-        p[0][1] = v1->pos.getY();
-        p[0][2] = v1->pos.getZ();
-        p[1][0] = v2->pos.getX();
-        p[1][1] = v2->pos.getY();
-        p[1][2] = v2->pos.getZ();
-        p[2][0] = v3->pos.getX();
-        p[2][1] = v3->pos.getY();
-        p[2][2] = v3->pos.getZ();
+        p[0][0] = v1->pos.x;
+        p[0][1] = v1->pos.y;
+        p[0][2] = v1->pos.z;
+        p[1][0] = v2->pos.x;
+        p[1][1] = v2->pos.y;
+        p[1][2] = v2->pos.z;
+        p[2][0] = v3->pos.x;
+        p[2][1] = v3->pos.y;
+        p[2][2] = v3->pos.z;
         p[3][0] = newPoint.x;
         p[3][1] = newPoint.y;
         p[3][2] = newPoint.z;

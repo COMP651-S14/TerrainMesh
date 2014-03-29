@@ -710,9 +710,9 @@ static void objWriteCell(Cell *cell, ostream &s, const char *streamname)
     Vertex *vertex;
 
     while ((vertex = vertices.next())!=0)
-      s << "v " << vertex->pos.getX() << " "
-	        << vertex->pos.getY() << " "
-	        << vertex->pos.getZ() << "\n";
+      s << "v " << vertex->pos.x << " "
+	        << vertex->pos.y << " "
+	        << vertex->pos.z << "\n";
   }
 
   // write faces in any order
