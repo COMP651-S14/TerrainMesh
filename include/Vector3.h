@@ -1,3 +1,6 @@
+#ifndef INC_VECTOR3_H
+#define INC_VECTOR3_H
+
 #include <iostream>
 #include <fstream>
 #include <string>
@@ -24,3 +27,5 @@ inline std::ifstream& operator >> (std::ifstream& in, Vector3& vec)
     in >> vec.x >> vec.y >> vec.z;
 	return in;
 }
+
+#endif	// INC_VECTOR3_H
