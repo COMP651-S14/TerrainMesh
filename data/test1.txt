@@ -1,0 +1,5 @@
+# Test case 1 - Simple K4 Order 1
+0 0 1
+0 6 2
+3 6 3
+3 3 4

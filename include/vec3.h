@@ -10,8 +10,13 @@ private:
 
 public:
 	vec3() {}
-	void set(float newX, float newY, float newZ)
-	{
+
+	vec3(float newX, float newY, float newZ) {
+		x = newX;
+		y = newY;
+		z = newZ;
+	}
+	void set(float newX, float newY, float newZ) {
 		x = newX;
 		y = newY;
 		z = newZ;
@@ -20,7 +25,6 @@ public:
 	float getX() { return x; }
 	float getY() { return y; }
 	float getZ() { return z; }
-
 };
 
 #endif
