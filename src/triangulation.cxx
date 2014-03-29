@@ -7,7 +7,12 @@ using namespace std;
 typedef double pos[3];
 
 Edge* localizePoint(Cell *c, const vec3& newPoint) {
-    cout << "Now inserting point " << newPoint << " in cell bounded by: " << endl;
+    cout << "Now inserting point " << newPoint << " in cell with vertices:\n";
+	CellVertexIterator iter(c);
+	Vertex *v = iter.next();
+	for (; v != NULL; v = iter.next()) {
+		cout << v->pos << endl;
+	}
 	CellFaceIterator faces(c);
     Face *f = NULL;
     pos p[4];
@@ -55,6 +60,7 @@ void Triangulation::addPoint(Cell* c, const Point& pt, LocateFunction l)
     e0 = fitr.next()->getEdge();
     vec3 v;
     v.set(pt.x,pt.y,pt.z);
+
     Edge *e1 = (l != NULL) ? l(v,e0) : localizePoint(c,pt);
 
     Vertex *v1 = e1->Org(), *v2 = e1->Dest();
@@ -64,6 +70,7 @@ void Triangulation::addPoint(Cell* c, const Point& pt, LocateFunction l)
     Vertex *v3 = e2->Dest();
     Face *f2 = c->makeFaceEdge(f,v1,v2)->Left();
     Vertex *vnew = c->makeVertexEdge(v2,f,f2)->Dest();
+	vnew->pos.set(pt.x,pt.y,pt.z);
     c->makeFaceEdge(f,vnew,v3);
     std::vector<Edge*> neighbors;
     neighbors.push_back(e1->Sym());
