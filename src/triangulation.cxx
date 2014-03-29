@@ -1,4 +1,3 @@
-
 #include "triangulation.h"
 #include "predicates.h"
 #include "cell.h"
@@ -9,9 +8,9 @@ Edge* localizePoint(Cell *c, const Point& newPoint) {
     CellFaceIterator faces(c);
     Face *f = NULL;
     pos p[4];
-    p[3][0] = newPoint.x;
-    p[3][1] = newPoint.y;
-    p[3][2] = newPoint.z;
+    p[3][0] = newPoint.getX();
+    p[3][1] = newPoint.getY();
+    p[3][2] = newPoint.getZ();
     while ((f = faces.next())) {
         Edge *e1 = f->getEdge();
         Edge *e2 = e1->Lnext();
