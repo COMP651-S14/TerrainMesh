@@ -29,6 +29,7 @@ set(srcs
 #"src/locate.cpp"
 "src/triangulation.cxx"
 "src/main.cpp"
+"src/GSLocate.cpp"
 )
 
 # add headers here.  This sets the ${headers} variable to be a list of files
@@ -40,6 +41,7 @@ set(headers
 "include/Vec3.h"
 "include/locate.h"
 "include/triangulation.h"
+"include/GSLocate.h"
 )
 
 include_directories(${CMAKE_SOURCE_DIR}/include)
