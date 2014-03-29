@@ -43,7 +43,12 @@ Cell* setUpInitialCell(float minx, float maxx, float miny, float maxy) {
 }
 
 int main(int argc, char *argv[]) {
-	string fname = (argc == 2) ? string(argv[1]): "E:/University/COMP 651 - Computational Geometry/HW4/data/test1.txt";
+    if (argc < 2) {
+        cerr << "Error: no filename specified." << endl;
+        cerr << "Usage: " << argv[0] << " datafilename" << endl;
+        exit(1);
+    }
+    string fname = string(argv[1]);
     ifstream fin(fname.c_str());
 	if (!fin.is_open()) {
 		cout << "The file " << fname << " could not be opened for reading." << endl;
@@ -83,6 +88,23 @@ int main(int argc, char *argv[]) {
 	
 	Cell * initialCell = setUpInitialCell(minx, maxx, miny, maxy);
     Triangulation::triangulate(initialCell, vecArray, &gsLocate);
+
+    int cell = 0;
+
+    CellFaceIterator itr(initialCell);
+    Face *f = NULL;
+    while ((f = itr.next())) {
+        cout << "Cell: " << cell << endl;
+        FaceEdgeIterator eitr(f);
+        Edge *e = NULL;
+        int edge = 0;
+        while ((e = eitr.next())) {
+            cout << "Edge " << edge <<" from " << e->Org()->pos << " to " << e->Dest()->pos << endl;
+            ++edge;
+        }
+        cout << endl;
+        ++cell;
+    }
 
 	return 0;
 }

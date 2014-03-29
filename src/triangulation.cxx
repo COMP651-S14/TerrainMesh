@@ -86,7 +86,7 @@ void testAndSwapEdges(Cell *c, std::vector< Edge* >& edges, const Point& newPoin
         edges.pop_back();
         Vertex *v1 = e1->Org(), *v2 = e1->Dest();
         Edge *e2 = e1->Lnext();
-        Edge *e3 = e2->Lprev();
+        Edge *e3 = e1->Lprev();
         Vertex *v3 = e2->Dest();
         Edge *e4 = e1->Rnext();
         Edge *e5 = e1->Rprev();
