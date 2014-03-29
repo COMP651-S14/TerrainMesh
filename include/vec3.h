@@ -38,13 +38,12 @@ public:
 	float getY() const { return y; }
 	float getZ() const { return z; }
 
-	friend std::ostream& operator<< (std::ostream& out, vec3& vec);
-
+	friend std::ostream& operator<< (std::ostream& os, vec3& vec);
 };
 
-inline std::ostream& operator<< (std::ostream& out, vec3& vec) {
-	out << "|" << vec.x << " " << vec.y << " " << vec.z << "|\n";
-	return out;
+inline std::ostream& operator<< (std::ostream& os, vec3& vec) {
+	os << "|" << vec.x << " " << vec.y << " " << vec.z << "|\n";
+	return os;
 }
 
 #endif
