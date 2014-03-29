@@ -20,7 +20,12 @@ public:
 	float getX() { return x; }
 	float getY() { return y; }
 	float getZ() { return z; }
-
+	// bool MyClass::operator==(const MyClass &other) const
+	bool vec3::operator==( vec3 v1) {
+		
+		return !(x == v1.getX() && y==v1.getY());
+		//return Vector2d<Type>( s * v._x, s * v._y );
+	}
 };
 
 #endif

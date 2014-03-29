@@ -18,19 +18,19 @@
 Edge* gsLocate(vec3 x, Edge* initEdge){
 	Edge * e=initEdge;
 	while(true){
-		if(x==e->Org->pos  || x==e->Dest->pos)
+		if(x==e->Org()->pos  || x==e->Dest()->pos)
 			return e;
 		else
 		{
-			if(orient2dfastVec(e->Org->pos,e->Dest->pos,x)==-1) 
+			if(orient2dfastVec(e->Org()->pos,e->Dest()->pos,x)==-1) 
 				e=e->Sym();
 			else
 			{
-				if(orient2dfastVec(e->Onext()->Org->pos,e->Onext()->Dest->pos,x)!=-1)
+				if(orient2dfastVec(e->Onext()->Org()->pos,e->Onext()->Dest()->pos,x)!=-1)
 					e=e->Onext();
 				else
 				{
-					if(orient2dfastVec(e->Dprev()->Org->pos,e->Dprev()->Dest->pos,x)!=-1)
+					if(orient2dfastVec(e->Dprev()->Org()->pos,e->Dprev()->Dest()->pos,x)!=-1)
 						e=e->Dprev();
 					else
 						return e;
