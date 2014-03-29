@@ -83,8 +83,6 @@ int main(int argc, char *argv[]) {
 	Cell * initialCell = setUpInitialCell(minx, maxx, miny, maxy);
 	Triangulation::triangulate(initialCell, vecArray);
 
-	//FaceIter
-
 	return 0;
 }
 

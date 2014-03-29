@@ -1,11 +1,14 @@
 #include "triangulation.h"
 #include "predicates.h"
 #include "cell.h"
+#include <iostream>
+using namespace std;
 
 typedef double pos[3];
 
-Edge* localizePoint(Cell *c, const Point& newPoint) {
-    CellFaceIterator faces(c);
+Edge* localizePoint(Cell *c, const vec3& newPoint) {
+    cout << "Now inserting point " << newPoint << endl;
+	CellFaceIterator faces(c);
     Face *f = NULL;
     pos p[4];
     p[3][0] = newPoint.getX();
@@ -30,6 +33,7 @@ Edge* localizePoint(Cell *c, const Point& newPoint) {
             return e1;
         }
     }
+	return NULL;
 }
 
 void questionAndSwapEdges(std::vector< Edge* >& edges,
@@ -69,8 +73,7 @@ void Triangulation::addPoint(Cell* c, const Point& pt, LocateFunction l)
     questionAndSwapEdges(neighbors,pt);
 }
 
-void questionAndSwapEdges(std::vector< Edge* >& edges,
-                          const Point& newPoint)
+void questionAndSwapEdges(std::vector< Edge* >& edges, const Point& newPoint)
 {
     while (!edges.empty()) {
         Edge *e1 = edges.back();
