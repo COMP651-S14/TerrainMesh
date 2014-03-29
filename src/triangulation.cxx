@@ -56,7 +56,7 @@ void Triangulation::addPoint(Cell* c, const Point& pt, LocateFunction l)
     e0 = fitr.next()->getEdge();
     vec3 v;
     v.set(pt.x,pt.y,pt.z);
-    Edge *e1 = (l == NULL) ? l(v,e0) : localizePoint(c,pt);
+    Edge *e1 = (l != NULL) ? l(v,e0) : localizePoint(c,pt);
 
     Vertex *v1 = e1->Org(), *v2 = e1->Dest();
     Face *f = e1->Left();
