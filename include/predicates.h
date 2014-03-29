@@ -12,11 +12,11 @@
 /*    points.  Each point is an array of two or three floating-point         */
 /*    numbers.  The geometric predicates, described in the papers, are       */
 /*                                                                           */
-/*    orient2d(pa, pb, pc)                                                   */
+/*    orient2d(pa, pb, pc);                                                  */
 /*    orient2dfast(pa, pb, pc)                                               */
 /*    orient3d(pa, pb, pc, pd)                                               */
 /*    orient3dfast(pa, pb, pc, pd)                                           */
-/*    incircle(pa, pb, pc, pd)                                               */
+/*    incircle(pa, pb, pc, pd);                                              */
 /*    incirclefast(pa, pb, pc, pd)                                           */
 /*    insphere(pa, pb, pc, pd, pe)                                           */
 /*    inspherefast(pa, pb, pc, pd, pe)                                       */
@@ -26,3 +26,6 @@
 /*    are also versions with the suffices "exact" and "slow", which are      */
 /*    non-adaptive, exact arithmetic versions, which I use only for timings  */
 /*    in my arithmetic papers.                                               */
+
+double orient2d(double* pa, double* pb, double* pc);
+double incircle(double* pa, double* pb, double* pc, double* pd);
