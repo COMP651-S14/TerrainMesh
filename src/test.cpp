@@ -6,6 +6,7 @@
 #include <vec3.h>
 #include <cell.h>
 #include <triangulation.h>
+#include <GSLocate.h>
 using namespace std;
 
 Cell* setUpInitialCell(float minx, float maxx, float miny, float maxy) {
@@ -81,7 +82,7 @@ int main(int argc, char *argv[]) {
 	//system("pause");
 	
 	Cell * initialCell = setUpInitialCell(minx, maxx, miny, maxy);
-	Triangulation::triangulate(initialCell, vecArray);
+    Triangulation::triangulate(initialCell, vecArray, &gsLocate);
 
 	return 0;
 }
