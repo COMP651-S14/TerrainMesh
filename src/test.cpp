@@ -1,3 +1,4 @@
+#include <cassert>
 #include <iostream>
 #include <fstream>
 #include <sstream>
@@ -6,6 +7,7 @@
 #include <vec3.h>
 #include <cell.h>
 #include <triangulation.h>
+#include <predicates.h>
 #include <GSLocate.h>
 using namespace std;
 
@@ -15,7 +17,7 @@ void printAllEdgesInCell(Cell *c) {
     CellFaceIterator itr(c);
     Face *f = NULL;
     while ((f = itr.next())) {
-        cout << "Cell: " << cell << endl;
+        cout << "Face: " << f->getID() << endl;
         FaceEdgeIterator eitr(f);
         Edge *e = NULL;
         int edge = 0;
@@ -26,6 +28,66 @@ void printAllEdgesInCell(Cell *c) {
         cout << endl;
         ++cell;
     }
+}
+
+// deletes the vertex at the origin of the given edge
+static inline void deleteVertexFromTriangulation(Cell *c, Edge *startEdge) {
+    // the next line (commented) is only there for understanding
+    //Vertex *vertexToDelete = startEdge->Org();
+    Edge *endEdge = startEdge->Oprev();
+    Edge *currentEdge = startEdge;
+    Vertex *lastVertex = NULL;
+//    Face *f = currentEdge->Left();
+    while (currentEdge != endEdge) {
+        // save values
+        Edge *next = currentEdge->Onext();
+        Vertex *nextDest = next->Dest();
+        Vertex *dest = currentEdge->Dest();
+
+        // delete the current edge
+        c->killFaceEdge(currentEdge);
+
+        // fix the dest vertices' triangulation
+        // to change to deleting internal points, fix this section
+        if (lastVertex != NULL) {
+            // if a turn to the left, then dest is not on the convex hull and
+            // the triangulation needs a triangle to fix the convex hull
+            if (orient2dfastVec(lastVertex->pos,dest->pos,nextDest->pos) > 0) {
+                c->makeFaceEdge(next->Right(),nextDest,lastVertex);
+            }
+        }
+
+        // use saved values
+        currentEdge = next;
+        lastVertex = dest;
+    }
+    // only endEdge is left of the edges containing vertexToDelete
+    // this line also should effectively delete vertexToDelete
+    c->killVertexEdge(endEdge->Sym());
+}
+
+// deletes the vertices for the initial face created in setUpInitialCell,
+// leaving the result of the Delauney triangulation of the input points
+// as the remainder
+// This function assumes that the three vertices passed in have edges between
+// them and a face that is made up of only these edges (infinite face), so that
+// the selections of edges to do deletions from works correctly
+static inline void deleteSetupVertices(Cell *c, Vertex *initialVertex1,
+                         Vertex *initialVertex2, Vertex *initialVertex3) {
+    VertexEdgeIterator vei(initialVertex1);
+    Edge *e = NULL;
+    while ( e == NULL || e->Dest() != initialVertex2) {
+        e = vei.next();
+    }
+    if (e->Onext()->Dest() == initialVertex3) {
+        e = e->Onext();
+    }
+    Edge *e1 = e;
+    Edge *e2 = e1->Sym()->Onext();
+    Edge *e3 = e2->Sym()->Onext()->Onext();
+    deleteVertexFromTriangulation(c,e1);
+    deleteVertexFromTriangulation(c,e2);
+    deleteVertexFromTriangulation(c,e3);
 }
 
 Cell* setUpInitialCell(float minx, float maxx, float miny, float maxy) {
@@ -106,7 +168,20 @@ int main(int argc, char *argv[]) {
 	//system("pause");
 	
 	Cell * initialCell = setUpInitialCell(minx, maxx, miny, maxy);
-    Triangulation::triangulate(initialCell, vecArray, &gsLocate);
+    Vertex *v1, *v2, *v3;
+    {
+        CellVertexIterator cvi(initialCell);
+        v1 = cvi.next();
+        v2 = cvi.next();
+        v3 = cvi.next();
+        assert(v1 != NULL);
+        assert(v2 != NULL);
+        assert(v3 != NULL);
+        assert(cvi.next() == NULL);
+    }
+    Triangulation::triangulate(initialCell, vecArray);//, &gsLocate);
+    cout << "Finished inserting points, removing initial face vertices..." << endl;
+    deleteSetupVertices(initialCell,v1,v2,v3);
 
     printAllEdgesInCell(initialCell);
 
