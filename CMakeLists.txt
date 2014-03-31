@@ -28,7 +28,6 @@ set(srcs
 "src/predicates.cpp"
 #"src/locate.cpp"
 "src/triangulation.cxx"
-"src/main.cpp"
 "src/GSLocate.cpp"
 )
 
