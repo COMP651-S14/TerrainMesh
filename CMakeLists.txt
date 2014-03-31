@@ -8,11 +8,9 @@ set(quad_edge_srcs
 "src/vertex.cpp"
 "src/cell.cpp"
 "src/predicates.cpp"
-"src/quadedgewrapper.cxx"
 )
 
 set(quad_edge_headers
-"include/quadedgewrapper.h"
 "include/edge.h"
 "include/face.h"
 "include/cell.h"
