@@ -8,6 +8,7 @@ set(quad_edge_srcs
 "src/vertex.cpp"
 "src/cell.cpp"
 "src/predicates.cpp"
+"src/walkquadedge.cpp"
 )
 
 set(quad_edge_headers
@@ -17,6 +18,7 @@ set(quad_edge_headers
 "include/predicates.h"
 "include/vec3.h"
 "include/vertex.h"
+"include/walkquadedge.h"
 )
 
 add_library(quad_edge ${quad_edge_srcs} ${quad_edge_headers})

@@ -9,6 +9,7 @@
 #include <triangulation.h>
 #include <predicates.h>
 #include <GSLocate.h>
+#include <walkquadedge.h>
 using namespace std;
 
 void printAllEdgesInCell(Cell *c) {
@@ -180,6 +181,9 @@ int main(int argc, char *argv[]) {
         assert(cvi.next() == NULL);
     }
     Triangulation::triangulate(initialCell, vecArray);//, &gsLocate);
+//    WalkQuadEdge w(initialCell);
+//    w.interactiveWalk(cin,cout);
+
     cout << "Finished inserting points, removing initial face vertices..." << endl;
     deleteSetupVertices(initialCell,v1,v2,v3);
 
