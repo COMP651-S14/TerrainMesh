@@ -44,6 +44,7 @@ static inline void deleteVertexFromTriangulation(Cell *c, Edge *startEdge) {
         Edge *next = currentEdge->Onext();
         Vertex *nextDest = next->Dest();
         Vertex *dest = currentEdge->Dest();
+        Face *f = currentEdge->Left();
 
         // delete the current edge
         c->killFaceEdge(currentEdge);
@@ -54,13 +55,13 @@ static inline void deleteVertexFromTriangulation(Cell *c, Edge *startEdge) {
             // if a turn to the left, then dest is not on the convex hull and
             // the triangulation needs a triangle to fix the convex hull
             if (orient2dfastVec(lastVertex->pos,dest->pos,nextDest->pos) > 0) {
-                c->makeFaceEdge(next->Right(),nextDest,lastVertex);
+                c->makeFaceEdge(f,nextDest,lastVertex);
             }
+        } else {
+            // use saved values
+            lastVertex = dest;
         }
-
-        // use saved values
         currentEdge = next;
-        lastVertex = dest;
     }
     // only endEdge is left of the edges containing vertexToDelete
     // this line also should effectively delete vertexToDelete
